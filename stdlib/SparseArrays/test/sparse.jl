@@ -1138,6 +1138,15 @@ end
         S[I] .= J
         @test sum(S) == (sumS1 - sumS2 + sum(J))
     end
+
+    # setindex with a Matrix{Bool}
+    A = sprand(10, 10, 0.2)
+    Is = fill(false, 10, 10)
+    Is[1, 1] = true
+    Is[10, 10] = true
+    A[Is] = [0.1, 0.5]
+    @test A[1, 1] == 0.1
+    @test A[10, 10] == 0.5
 end
 
 @testset "dropstored!" begin
